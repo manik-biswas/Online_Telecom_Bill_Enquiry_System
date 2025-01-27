@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Profile Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #343a40;
+        }
+        .profile-section {
+            margin-bottom: 20px;
+        }
+        .profile-section label {
+            display: block;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #495057;
+        }
+        .profile-section input, .profile-section select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            background-color: #e9ecef;
+        }
+        .profile-section input:disabled, .profile-section select:disabled {
+            background-color: #f8f9fa;
+            border: none;
+        }
+        .password-container {
+            position: relative;
+        }
+        .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+        .btn-container {
+            text-align: center;
+        }
+        .btn {
+            display: inline-block;
+            margin: 10px 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .btn-back {
+            background-color: #6c757d;
+        }
+        .btn-back:hover {
+            background-color: #5a6268;
+        }
+    </style>
+    <script>
+        function toggleEditMode() {
+            const inputs = document.querySelectorAll('.profile-section input, .profile-section select');
+            const editButton = document.getElementById('editButton');
+            const updateButton = document.getElementById('updateButton');
+            
+			if (editButton.style.display !== 'none') {
+			        // Enable editing except for username and password
+			        inputs.forEach(input => {
+			            if (input.id !== 'username' && input.id !== 'password') {
+			                input.disabled = false;
+			            }
+			        });
+			        editButton.style.display = 'none';
+			        updateButton.style.display = 'inline-block';
+			    }
+        }
+
+        function saveDetails() {
+            document.getElementById('profileForm').submit();
+        }
+
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('togglePassword');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.textContent = '👁‍🗨';
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.textContent = '👁';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Profile Details</h1>
+        <form id="profileForm" th:action="@{/updateprofile}" method="post">
+            <!-- Name -->
+            <div class="profile-section">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" th:value="${customer.name}" disabled>
+            </div>
+            
+            <!-- Email -->
+            <div class="profile-section">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" th:value="${customer.email}" disabled>
+            </div>
+            
+            <!-- Phone Number -->
+            <div class="profile-section">
+                <label for="phoneNumber">Phone Number</label>
+                <input type="text" id="phoneNumber" name="phoneNumber" th:value="${customer.phoneNumber}" disabled>
+            </div>
+            
+            <!-- Address -->
+            <div class="profile-section">
+                <label for="address">Address</label>
+                <input type="text" id="address" name="address" th:value="${customer.address}" disabled>
+            </div>
+            
+			<!-- Username -->
+			<div class="profile-section">
+			    <label for="username">Username</label>
+			    <input type="text" id="username" name="displayUsername" th:value="${customer.username}" disabled>
+			    <!-- Hidden input to pass the username in the form submission -->
+			    <input type="hidden" name="username" th:value="${customer.username}">
+			</div>
+
+            
+            <!-- Password -->
+            <div class="profile-section password-container">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" th:value="${customer.password}" disabled>
+                <span class="toggle-password" id="togglePassword" onclick="togglePasswordVisibility()">👁</span>
+				<input type="hidden" name="password" th:value="${customer.password}">
+            </div>
+            
+            <!-- DOB -->
+            <div class="profile-section">
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" name="dob" th:value="${customer.dob}" disabled>
+            </div>
+            
+            <!-- Gender -->
+            <div class="profile-section">
+                <label for="gender">Gender</label>
+                <select id="gender" name="gender" th:value="${customer.gender}" disabled>
+                    <option value="male" th:selected="${customer.gender == 'male'}">Male</option>
+                    <option value="female" th:selected="${customer.gender == 'female'}">Female</option>
+                    <option value="other" th:selected="${customer.gender == 'other'}">Other</option>
+                </select>
+            </div>
+
+            <!-- Buttons -->
+            <div class="btn-container">
+                <button type="button" id="editButton" class="btn" onclick="toggleEditMode()">Edit</button>
+                <button type="button" id="updateButton" class="btn" style="display: none;" onclick="saveDetails()">Update</button>
+                <a href="/dashboard" class="btn btn-back">Back</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

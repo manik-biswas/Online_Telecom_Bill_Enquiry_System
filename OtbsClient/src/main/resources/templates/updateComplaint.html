@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Complaint</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Update Complaint</h1>
+
+        <!-- Error Message -->
+        <div th:if="${error}" class="alert alert-danger">
+            <p th:text="${error}"></p>
+        </div>
+
+        <!-- Success Message -->
+        <div th:if="${message}" class="alert alert-success">
+            <p th:text="${message}"></p>
+        </div>
+
+        <form th:action="@{/updateComplaint}" th:object="${complaint}" method="post">
+			<input type="hidden" name="_method" value="PUT"/>
+            <!-- Complaint ID (Hidden Field) -->
+            <input type="hidden" th:field="*{ComplaintId}" />
+
+            <!-- Complaint Type -->
+            <div class="mb-3">
+                <label for="complaintType" class="form-label">Complaint Type:</label>
+                <input type="text" id="complaintType" class="form-control" th:field="*{complaintType}" placeholder="Enter complaint type" required />
+            </div>
+
+            <!-- Description -->
+            <div class="mb-3">
+                <label for="description" class="form-label">Description:</label>
+                <textarea id="description" class="form-control" th:field="*{description}" placeholder="Enter complaint description" required></textarea>
+            </div>
+
+            
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary">Update Complaint</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS (Optional) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

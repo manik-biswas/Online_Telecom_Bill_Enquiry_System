@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manage Plans</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        .container {
+            width: 95%;
+            /* max-width: 800px; */
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #fafafa;
+        }
+
+        .section h2 {
+            margin-top: 0;
+            text-align: center;
+            color: #555;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+			font-size: large;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input, select, button {
+			font-size: larger;
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+	
+    <div class="container">
+		
+        <h1>Plan Management</h1>
+
+        <!-- Get All Plans -->
+        <div class="section">
+            <h2>View All Plans</h2>
+            <a th:href="@{/plan/viewAllPlans}">Click here to view all plans</a>
+        </div>
+
+        <!-- Get Plan by ID -->
+        <div class="section">
+            <h2>Get Plan by ID</h2>
+            <form th:action="@{/plan/searchById}" method="get">
+                <div class="form-group">
+                    <label for="planId">Plan ID:</label>
+                    <input type="number" id="planId" name="planId" required />
+                </div>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <!-- Get Plan by Name -->
+        <div class="section">
+            <h2>Get Plan by Name</h2>
+            <form th:action="@{/plan/searchByName}" method="get">
+                <div class="form-group">
+                    <label for="planName">Plan Name:</label>
+                    <input type="text" id="planName" name="planName" required />
+                </div>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <!-- Get Plans by Fixed Rate -->
+        <div class="section">
+            <h2>Get Plans by Fixed Rate</h2>
+            <form th:action="@{/plan/searchByFixedRate}" method="get">
+                <div class="form-group">
+                    <label for="fixedRate">Fixed Rate:</label>
+                    <input type="number" step="0.01" id="fixedRate" name="fixedRate" required />
+                </div>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <!-- Get Plans by Plan Group -->
+        <div class="section">
+            <h2>Get Plans by Plan Group</h2>
+            <form th:action="@{/plan/searchByPlanGroup}" method="get">
+                <div class="form-group">
+                    <label for="planGroup">Plan Group:</label>
+                    <input type="text" id="planGroup" name="planGroup" required />
+                </div>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <!-- Get Plans by Data Limit -->
+        <div class="section">
+            <h2>Get Plans by Data Limit</h2>
+            <form th:action="@{/plan/searchByDataLimit}" method="get">
+                <div class="form-group">
+                    <label for="dataLimit">Data Limit:</label>
+                    <input type="text" id="dataLimit" name="dataLimit" required />
+                </div>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <!-- Get Plans by Number of Days -->
+        <div class="section">
+            <h2>Get Plans by Number of Days</h2>
+            <form th:action="@{/plan/searchByNumberOfDay}" method="get">
+                <div class="form-group">
+                    <label for="numberOfDay">Number of Days:</label>
+                    <input type="number" id="numberOfDay" name="numberOfDay" required />
+                </div>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <!-- Get Plans by Status -->
+        <div class="section">
+            <h2>Get Plans by Status</h2>
+            <form th:action="@{/plan/searchByStatus}" method="get">
+                <div class="form-group">
+                    <label for="status">Status:</label>
+                    <select id="status" name="status">
+                        <option value="ACTIVE">Active</option>
+                        <option value="INACTIVE">Inactive</option>
+                    </select>
+                </div>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+		
+		
+
+        <!-- Add Plan -->
+        <div th:if="${role == 'admin'}" class="section">
+            <h2>Add Plan</h2>
+            <form th:action="@{/plan/addForm}" method="post">
+                <button type="submit">Add Plan</button>
+            </form>
+        </div>
+
+        <!-- Update Plan -->
+        <div th:if="${role == 'admin'}" class="section">
+            <h2>Update Plan</h2>
+            <form th:action="@{/plan/updateForm}" method="post">
+                <button type="submit">Update Plan</button>
+            </form>
+        </div>
+
+        <!-- Delete Plan -->
+        <div th:if="${role == 'admin'}" class="section">
+            <h2>Delete Plan</h2>
+            <form th:action="@{/plan/deletePlan}" method="post">
+                <div class="form-group">
+                    <label for="planIdToDelete">Plan ID:</label>
+                    <input type="number" id="planIdToDelete" name="planId" required />
+                </div>
+                <button type="submit">Delete</button>
+            </form>
+        </div>
+			<div th:if="${role == 'customer'}">
+			<!--	<a th:href="@{/plan/customerDashboard}">Go to dashboard</a> -->
+			<a th:href="@{/dashboard}" class="btn btn-secondary btn-back">Go to dashboard</a>
+			</div>
+			
+			<div th:if="${role == 'admin'}">
+				<a th:href="@{/plan/adminDashboard}">Go to dashboard</a>
+			</div>
+			
+    </div>
+	
+</body>
+</html>

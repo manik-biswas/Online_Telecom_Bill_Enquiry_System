@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Connection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    
+    <style>
+        body {
+            background-color: #f4f7fa;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        h1 {
+            color: #dc3545;
+            font-size: 2.5rem;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            border: none;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        .btn-back {
+            background-color: #6c757d;
+            border: none;
+            color: white;
+        }
+        .btn-back:hover {
+            background-color: #5a6268;
+        }
+        .mb-3 label {
+            font-weight: bold;
+        }
+    </style>
+    
+    <script>
+        function validateForm(event) {
+            const connectionId = document.getElementById("connectionId").value.trim();
+
+            if (!connectionId) {
+                alert("Connection ID is required.");
+                event.preventDefault();
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Delete Connection</h1>
+        <form th:action="@{/delete-connection}" method="post" class="mt-4" onsubmit="validateForm(event)">
+            <div class="mb-3">
+                <label for="connectionId" class="form-label">Connection ID</label>
+                <input type="text" id="connectionId" name="connectionId" class="form-control" placeholder="Enter Connection ID" required>
+            </div>
+            <button type="submit" class="btn btn-danger">Delete Connection</button>
+			<div class="text-center mt-4">
+								<a href="/admindashboard" class="btn btn-back">Go Back to dashboard</a>
+					        </div>
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+</body>
+</html>

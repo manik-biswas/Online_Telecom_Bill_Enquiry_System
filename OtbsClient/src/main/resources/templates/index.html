@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>OTBS</title>
+    <style>
+        .header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        .header img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin: 0px 10px;
+        }
+        .auth {
+            display: flex;
+            gap: 10px;
+        }
+        .auth a {
+            text-decoration: none;
+            margin: 0px 10px;
+            font-size: 20px;
+            font-weight: bold;
+            color: rgb(0, 0, 255);
+        }
+		
+		.auth a :hover{
+			color: rgb(0, 0, 160);
+		}
+		
+		
+        .main {
+            text-align: center; 
+            background-color: rgb(245, 233, 233);
+            padding: 10px;
+            margin: 10px 0px;
+        }
+        .main h1 {
+            font-size: 55px;
+            margin-top: 50px;
+            margin-bottom: 0px;
+            font-family: sans-serif;
+            color: rgb(32, 31, 31);
+        }
+        .main h2 {
+            color: rgb(75, 73, 73);
+            margin-bottom: 80px;
+        }
+        .footer {
+            background-color: rgb(221, 219, 219);
+            padding-top: 5px;
+        }
+        .footer h2 {
+            text-align: center;
+        }
+        .footer h3 a {
+            text-decoration: none;
+            color: black;
+            margin: 0px 10px;
+        }
+        .about {
+            display: flex;
+            justify-content: space-around;
+        }
+        h2 {
+            text-align: center;
+            font-size: 30px;
+            margin-bottom: 0px;
+        }
+        li {
+            font-size: 25px;
+            font-family: 'Times New Roman', Times, serif;
+            margin: 10px;
+        }
+        .offer {
+            display: flex;
+            justify-content: space-around;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="header">
+        <img th:src="@{/resources/image/logo.png}" alt="Bharat Teleservices Logo" />
+        <div class="auth">
+            <a th:href="@{/register}">Register</a>
+            <a th:href="@{/login}">Login</a>
+        </div>
+    </div>
+    <div class="main">
+        <h1>Welcome to Bharat telecom services</h1>
+        <h2>Get the best connectivity and services around the world</h2>
+    </div>
+    <div class="details">
+        <h2>We offer</h2>
+        <div class="offer">
+            <ul type="none">
+                <li>Registration</li>
+                <li>Connection Management</li>
+                <li>Plan Management</li>
+            </ul>
+            <ul type="none">
+                <li>Billing Management</li>
+                <li>Helpdesk</li>
+                <li>Reports</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer">
+       <!-- <h2>About developer</h2>  -->
+ 		<h2>About Bharat Telecom Services</h2>
+        <div class="about">
+            <div class="col1">
+                <h3>Name: <!-- Manik Biswas -->Bharat Telecom Services </h3>
+                <h3>Contact: 7529989668</h3>
+                <h3><i class="fa-solid fa-envelope"></i><a> <!-- manikbiswas1225@gmail.com --> bharattelecomservices@bts.com</a></h3>
+            </div>
+            <div class="col2">
+                <h3><i class="fa-brands fa-github"></i> <a href="https://github.com/manik-biswas"> <!-- manik-biswas</a> --> bharat-telecom-services </h3>
+                <h3><i class="fa-brands fa-linkedin"></i> <a href="https://www.linkedin.com/in/manik-biswas1225"> <!-- manik-biswas1225 --> bharat-telecom-services9668</a></h3>
+                <h3><i class="fa-brands fa-square-twitter"></i> <a href="https://x.com/ManikBi87966181"> <!-- ManikBi87966181 --> bharatTs9668</a></h3>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

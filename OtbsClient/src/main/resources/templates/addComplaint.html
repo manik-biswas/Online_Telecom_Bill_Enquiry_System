@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Complaint</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@300;600&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: #1a1a2e;
+            color: white;
+        }
+
+        .header img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+        }
+
+        .auth {
+            display: flex;
+            gap: 15px;
+        }
+
+        .auth a {
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 30px;
+            background-color: #e94560;
+            transition: background-color 0.3s ease;
+        }
+
+        .auth a:hover {
+            background-color: #f46b8a;
+        }
+
+        .main {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(120deg, #1a1a2e, #e94560);
+            color: white;
+        }
+
+        .main h1 {
+            font-size: 3.5rem;
+            font-family: 'Roboto', sans-serif;
+            margin-bottom: 20px;
+        }
+
+        .main h2 {
+            font-size: 1.5rem;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            display: block;
+            color: #555;
+        }
+
+        input[type="text"], textarea, select {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus, textarea:focus, select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        textarea {
+            height: 120px;
+            resize: none;
+        }
+
+        button {
+            font-size: 1.1rem;
+            font-weight: bold;
+            padding: 12px 20px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .message {
+            font-size: 1rem;
+            padding: 12px;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .footer {
+            background-color: #1a1a2e;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 0.9rem;
+        }
+
+        .footer h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            button {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+    <!-- Main Section -->
+    <div class="main">
+        <h1>Add Complaint</h1>
+        <h2> Please let us know about your issue.</h2>
+    </div>
+
+    <!-- Complaint Form Section -->
+    <div class="container">
+        <!-- Form to submit a complaint -->
+        <form th:action="@{/addComplaint}" th:object="${complaint}" method="post">
+            <!-- Complaint Title Field -->
+            <div class="form-group">
+                <label for="title">Complaint Title:</label>
+                <input type="text" id="complaintType" th:field="*{complaintType}" placeholder="Enter the title of your complaint" required />
+            </div>
+
+            <!-- Complaint Description Field -->
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea id="description" th:field="*{description}" placeholder="Describe your complaint in detail" required></textarea>
+            </div>
+
+            <!-- Complaint Priority Dropdown -->
+            <div class="form-group">
+                <label for="priority">Priority:</label>
+                <select id="priority" th:field="*{priority}" required>
+                    <option value="" disabled selected>Select Priority</option>
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                </select>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-group">
+                <button type="submit">Submit Complaint</button>
+            </div>
+        </form>
+
+        <!-- Error Message (if any) -->
+        <div th:if="${error}" class="message error">
+            <p th:text="${error}"></p>
+        </div>
+
+        <!-- Success Message (if any) -->
+        <div th:if="${message}" class="message success">
+            <p th:text="${message}"></p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <h2>Bharat Telecom Services</h2>
+        <p>&copy; 2024 Bharat Telecom Services. All rights reserved.</p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+</body>
+</html>

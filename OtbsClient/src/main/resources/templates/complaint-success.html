@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint Submitted!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            color: #343a40;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+        .container {
+            max-width: 600px;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .alert {
+            font-size: 1.1rem;
+        }
+        .btn {
+            font-size: 1rem;
+            padding: 10px 20px;
+        }
+        .btn-back {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Complaint submitted!!</h1>
+     <!--  <div class="alert alert-success mt-4">
+            <h4 th:text="${message}"></h4>
+            <p>Complaint ID: <span th:text="${complaintId}"></span></p>
+            <p>Processing Fee: <span th:text="${processingFee}"></span></p>
+        </div> --> 
+        <!-- Buttons -->
+        <div class="text-center mt-4">
+            <a href="/addComplaint" class="btn btn-primary">Any Other Complaint?</a>
+            <a th:href="@{/complaintmanagement}" class="btn btn-primary">Go Back to Complaint Management</a>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+</body>
+</html>

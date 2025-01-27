@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unpaid Bills</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .header-container h2 {
+            margin: 0;
+            font-size: 24px;
+            text-align: center;
+            flex: 1;
+        }
+        .header-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #fff;
+            color: #ff7e5f;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .header-container button:hover {
+            background-color: #ff7e5f;
+            color: #fff;
+        }
+        .billtable {
+            max-width: 90%;
+            margin: 0 auto 20px auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        thead {
+            background-color: #ff7e5f;
+            color: white;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        tbody tr:hover {
+            background-color: #f9f9f9;
+        }
+        .mess {
+            text-align: center;
+            margin: 20px;
+        }
+        .mess h2 {
+            font-size: 20px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-container" th:if="${allunpaid}">
+        <button onclick="location.href='/admindashboard'">Home</button>
+        <h2 th:text="${allunpaid}">Unpaid Bills</h2>
+        <button onclick="location.href='/billcrossesduedate'">Bill Crosses Due Date</button>
+    </div>
+    <div class="header-container" th:if="${filterpaid}">
+        <button onclick="location.href='/admindashboard'">Home</button>
+        <h2 th:text="${filterpaid}">Filtered Unpaid Bills</h2>
+        <button onclick="location.href='/allunpaidbills'">All Unpaid Bills</button>
+    </div>
+    
+    <div class="billtable" th:if="${allUnpaidBills}">
+        <table>
+            <thead>
+                <tr>
+                    <th>Bill ID</th>
+                    <th>Customer Name</th>
+                    <th>Amount</th>
+                    <th>Due Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="bill : ${allUnpaidBills}">
+                    <td th:text="${bill.billId}">Bill ID</td>
+                    <td th:text="${bill.usage.connection.customerObj.name}">Customer Name</td>
+                    <td th:text="'₹' + ${bill.totalAmount}">Amount</td>
+                    <td th:text="${bill.dueDate}">Due Date</td>
+                    <td th:text="${bill.status}">Status</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="mess">
+        <h2 th:text="${message}"></h2>
+    </div>
+</body>
+</html>

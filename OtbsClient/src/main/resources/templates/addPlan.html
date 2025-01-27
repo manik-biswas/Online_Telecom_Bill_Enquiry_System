@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add New Plan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f9;
+            color: #333333;
+        }
+
+        .container {
+            width: 90%;
+            /* max-width: 600px; */
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333333;
+        }
+
+        .message {
+			font-size: xx-large;
+			font-weight: bold;
+            margin-bottom: 20px;
+            
+        }
+
+        .message.error {
+            color: rgb(255, 0, 0);
+        }
+
+        .message.success {
+            color: #4caf50;
+        }
+
+        form {
+            margin-top: 10px;
+        }
+
+        label {
+            font-size: 16px;
+            margin-top: 10px;
+            display: block;
+            text-align: left;
+            color: #333333;
+			font-size: large;
+			font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+			font-size: larger;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: larger
+			;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .button-group button {
+            flex: 1;
+            margin: 0 5px;
+        }
+
+        .link-button {
+            text-decoration: none;
+        }
+    </style>
+    <script>
+        function clearForm() {
+            document.getElementById("addPlanForm").reset();
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Add New Plan</h1>
+       
+		<div th:if="${error !=null}" class="message error">
+			<ul type="none">
+		        <li th:each="errorMsg : ${error.values()}" th:text="${errorMsg}"></li>
+		    </ul>
+		</div>
+		
+        <div th:if="${message}" class="message success" th:text="${message}"></div>
+        <form id="addPlanForm" th:action="@{/plan/addNewPlan}" method="post">
+            <label>Plan Name:</label>
+            <input type="text" name="planName" required/>
+
+            <label>Fixed Rate:</label>
+            <input type="number" step="0.01" name="fixedRate" required/>
+
+            <label>Data Limit:</label>
+            <input type="text" name="dataLimit" required/>
+
+            <label>Call Limit:</label>
+            <input type="text" name="callLimit" required/>
+
+            <label>SMS Limit:</label>
+            <input type="text" name="smsLimit" required/>
+
+            <label>Plan Group:</label>
+            <input type="text" name="planGroup" required/>
+
+            <label>Number of Days:</label>
+            <input type="number" name="numberOfDay" required/>
+
+            <label>Status:</label>
+            <select name="status">
+                <option value="ACTIVE">Active</option>
+                <option value="INACTIVE">Inactive</option>
+            </select>
+
+            <label>Extra Charge Per MB:</label>
+            <input type="number" step="0.01" name="extraChargePerMB" required/>
+
+            <label>Extra Charge Per Call:</label>
+            <input type="number" step="0.01" name="extraChargePerCall" required/>
+
+            <label>Extra Charge Per SMS:</label>
+            <input type="number" step="0.01" name="extraChargePerSMS" required/>
+
+            <div class="button-group">
+                <button type="submit">Add Plan</button>
+                <button type="button" onclick="clearForm()">Clear</button>
+                <a th:href="@{/plan/manage}" class="link-button">
+                    <button type="button">Back</button>
+                </a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

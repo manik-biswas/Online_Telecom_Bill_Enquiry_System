@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Complaint Management - Bharat Telecom Services</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@300;600&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: #1a1a2e;
+            color: white;
+        }
+
+        .header img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+        }
+
+        .main {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(120deg, #1a1a2e, #e94560);
+            color: white;
+        }
+
+        .main h1 {
+            font-size: 3.5rem;
+            font-family: 'Roboto', sans-serif;
+            margin-bottom: 20px;
+        }
+
+        .main h2 {
+            font-size: 1.5rem;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 750px;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            margin: 50px auto;
+        }
+
+        h1 {
+            color: #1a1a2e;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .list-group-item {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #495057;
+            border: none;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            background: #f8f9fa;
+            transition: all 0.3s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .list-group-item:hover {
+            background: #e94560;
+            color: #fff;
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4);
+        }
+
+        .list-group-item-action {
+            text-decoration: none;
+        }
+
+        .footer {
+            background-color: #1a1a2e;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 0.9rem;
+        }
+
+        .footer h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        @media (max-width: 576px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .list-group-item {
+                font-size: 1rem;
+                padding: 15px;
+            }
+
+            .btn {
+                font-size: 0.9rem;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Section -->
+    <div class="main">
+        <h1>Complaint Management</h1>
+        <h2>Manage Complaints Efficiently and Effectively</h2>
+    </div>
+
+    <!-- Complaint Options Section -->
+    <div class="container">
+        <div class="list-group">
+            <!-- Add Complaint -->
+            <a th:href="@{/addComplaint}" class="list-group-item list-group-item-action">
+                Add Complaint
+                <span class="badge bg-primary rounded-pill"></span>
+            </a>
+			
+			
+
+				           <!-- Update Complaint 
+				           <a th:href="@{/updateComplaint}" class="list-group-item list-group-item-action">
+				               Update Complaint
+				               <span class="badge bg-warning rounded-pill"></span>
+				           </a>
+
+            <!-- Feedback Section -->
+            <a th:href="@{/feedback}" class="list-group-item list-group-item-action">
+                Provide Feedback
+                <span class="badge bg-primary rounded-pill"></span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer">
+        <h2>Bharat Telecom Services</h2>
+        <p>&copy; 2024 Bharat Telecom Services. All rights reserved.</p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+</body>
+</html>

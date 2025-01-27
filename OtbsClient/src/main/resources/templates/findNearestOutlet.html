@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Nearest Outlet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f4f7fa;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        h1 {
+            color: #28a745;
+            font-size: 2.5rem;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .btn-back {
+            background-color: #6c757d;
+            border: none;
+            color: white;
+        }
+        .btn-back:hover {
+            background-color: #5a6268;
+        }
+        .mb-3 label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Find Nearest Outlet</h1>
+
+        <!-- Form to input location -->
+        <form th:action="@{/findNearestOutlet}" method="get" class="mt-4">
+            <div class="mb-3">
+                <label for="location" class="form-label">Enter Your Location</label>
+                <input type="text" id="location" name="location" class="form-control" placeholder="Enter location" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Find Outlet</button>
+        </form>
+
+        <!-- Display nearest outlet details -->
+        <div th:if="${outlet != null}" class="mt-5">
+            <h3>Nearest Outlet Details</h3>
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Outlet ID</th>
+                        <th>Location</th>
+                        <th>Available SIMs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td th:text="${outlet.outletId}"></td>
+                        <td th:text="${outlet.location}"></td>
+                        <td th:text="${outlet.availableSIMs}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Button to go back to connection management -->
+        <div class="text-center mt-4">
+            <a href="/connection-management" class="btn btn-back">Go Back to Connection Management</a>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+</body>
+</html>

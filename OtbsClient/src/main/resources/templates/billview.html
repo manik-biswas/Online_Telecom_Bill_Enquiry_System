@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Bill Details</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+
+    .container {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      max-width: 600px;
+      margin: 50px auto;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin: 0 0 20px;
+    }
+
+    .bill-details {
+      background-color: #f9f9f9;
+      border-radius: 5px;
+      padding: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #e0e0e0;
+      color: #555;
+      font-weight: bold;
+    }
+
+    td {
+      color: #333;
+    }
+
+    .pay-button {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      margin: 20px 0;
+      background-color: #28a745;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .pay-button:hover {
+      background-color: #218838;
+    }
+
+    .home-button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+      margin-bottom: 20px;
+    }
+
+    .home-button:hover {
+      background-color: #0056b3;
+    }
+
+    .payment-methods {
+      margin-top: 20px;
+    }
+
+    .payment-methods label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .payment-methods input {
+      margin-right: 10px;
+    }
+
+    .hidden {
+      display: none;
+    }
+  .pay-message {
+  font-family: 'Arial', sans-serif;
+  color: #4CAF50;
+  font-size: 24px;
+  text-align: center;
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+  </style>
+</head>
+<body>
+  <div>
+      <h2 th:if="${paymessage}" th:text="${paymessage}" class="pay-message">success notification</h2>
+  </div>
+  <div class="container">
+      <a th:href="@{/allBills}" class="home-button">Home</a>
+      <h2>Customer Bill Details</h2>
+      <div class="bill-details" th:if="${bill}">
+          <table>
+              <tr>
+                  <th>Bill ID</th>
+                  <td th:text="${bill.billId}" id="billid">12345</td>
+              </tr>
+              <tr>
+                  <th>Customer Name</th>
+                  <td th:text="${bill.usage.connection.customerObj.name}">John Doe</td>
+              </tr>
+              <tr>
+                  <th>Plan</th>
+                  <td th:text="${bill.usage.connection.plan.planName}">Premium Plan</td>
+              </tr>
+              <tr>
+                  <th>Bill Generated Date</th>
+                  <td th:text="${bill.date}">2024-12-01</td>
+              </tr>
+              <tr>
+                  <th>Due Date</th>
+                  <td th:text="${bill.dueDate}">2024-12-15</td>
+              </tr>
+              <tr>
+                  <th>Plan Charges</th>
+                  <td th:text="'₹' + ${bill.usage.connection.plan.fixedRate}">₹100</td>
+              </tr>
+              <tr>
+                  <th>Additional Charges</th>
+                  <td th:text="'₹' + ${bill.additionalCharges}">₹100</td>
+              </tr>
+              <tr>
+                  <th>Discount</th>
+                  <td th:text="'₹' + ${bill.discount}">₹50</td>
+              </tr>
+              <tr>
+                  <th>Tax</th>
+                  <td th:text="'₹' + ${bill.tax}">₹75</td>
+              </tr>
+              <tr>
+                  <th>Total Amount</th>
+                  <td th:text="'₹' + ${bill.totalAmount}">₹1125</td>
+              </tr>
+              <tr>
+                  <th>Status</th>
+                  <td th:text="${bill.status}">paid</td>
+              </tr>
+          </table>
+      </div>
+      <div class="payment-methods" th:if="${bill.status}=='unpaid'" >
+          <label><input type="radio" name="paymentMethod" value="creditCard"> Credit Card</label>
+          <label><input type="radio" name="paymentMethod" value="debitCard"> Debit Card</label>
+          <label><input type="radio" name="paymentMethod" value="upi"> UPI</label>
+      </div>
+      <a id="payButton" class="pay-button hidden">Pay Now</a>
+  </div>
+
+  <script>
+      // Pass the billId from Thymeleaf to JavaScript
+
+      const headerElement = document.getElementById('billid'); 
+      const billValue = headerElement.textContent;
+      const billId = billValue; // Default value for fallback
+      const paymentMethods = document.getElementsByName('paymentMethod');
+      const payButton = document.getElementById('payButton');
+
+      paymentMethods.forEach(method => {
+          method.addEventListener('change', () => {
+              payButton.classList.remove('hidden');
+              const selectedMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+
+              // Dynamically set the href for the Pay Now button
+              payButton.href = `/paybill?billId=${billId}&paymentMethod=${selectedMethod}`;
+          });
+      });
+  </script>
+</body>
+</html>

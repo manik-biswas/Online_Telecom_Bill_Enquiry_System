@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <h1 class="my-4">Admin Dashboard</h1>
+
+    <!-- Welcome message -->
+    <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading" th:text="${welcomeMessage}">Welcome, Admin!</h4>
+    </div>
+
+    <!-- Total Customers -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h3><!--Total Customers: --><span th:text="${totalCustomers}">0</span></h3>
+        </div>
+    </div>
+
+    <!-- Button to view all customers -->
+    <a href="/viewallcustomers" class="btn btn-primary mx-1">View All Customers</a>
+
+    <!--buttton created by bill management -->
+    <a href="/revenuemanage" class="btn btn-primary mx-1">Calculate Revenue</a>  
+    <a href="/allunpaidbills" class="btn btn-primary mx-1">Unpaid Bills Detail</a>
+	<a href="/plan/manage" class="btn btn-primary mx-1">Plan Management</a>
+	<!-- View All Connections -->
+	   	<a href="/view-all-connections" class="btn btn-primary mx-1 my-3">View All Connections</a>
+	    <a href="/view-all-connectionLogs" class="btn btn-primary mx-1 my-3">View All Connection Logs</a>
+		<!--these button are comes in the next line-->
+	    <a href="/connections-near-expiry" class="btn btn-primary mx-1 my-3 ml-5">View Connections Near Expiry</a>
+	    <a href="/delete-connection" class="btn btn-primary mx-1 my-3">Delete Connection by Connection ID</a>
+
+	        <!-- Outlet Management -->
+	        <a href="/add-outlet" class="btn btn-primary mx-1">Add New Outlet</a>
+	        <a href="/view-all-outlets" class="btn btn-primary mx-1">View All Outlets</a>
+	
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

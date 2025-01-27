@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Delete Plan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            width: 90%;
+            /* max-width: 500px; */
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            font-weight: bold;
+			font-size: xx-large;
+        }
+
+        .message.error {
+            color: red;
+        }
+
+        .message.success {
+            color: green;
+        }
+
+        form {
+            margin-top: 10px;
+        }
+
+        label {
+            font-size: large;
+			font-weight: bold;
+            color: #555;
+        }
+
+        input[type="number"] {
+			font-size: larger;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .action-buttons {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Delete Plan</h1>
+       <!-- <div th:if="${error}" class="message error" th:text="${error}"></div> -->
+		<div th:if="${error !=null}" class="message error">
+			<ul type="none">
+				<li th:each="errorMsg : ${error.values()}" th:text="${errorMsg}"></li>
+			</ul>
+		</div>	
+        <div th:if="${message}" class="message success" th:text="${message}"></div>
+        <form th:action="@{/plan/deletePlan}" method="post">
+            <label for="planId">Plan ID:</label>
+            <input type="number" id="planId" name="planId" required/>
+            <button type="submit">Delete Plan</button>
+        </form>
+        <div class="action-buttons">
+            <form th:action="@{/plan/manage}" method="get">
+                <button type="submit">Back</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

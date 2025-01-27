@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #e8eff5;
+            min-height: 100vh;
+        }
+        .welcome-message {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .welcome-message h1 {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .welcome-message p {
+            font-size: 18px;
+            color: #555;
+        }
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            padding: 20px;
+            width: 100%;
+            max-width: 900px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            width: 100%;
+        }
+        .form-grid label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        .form-grid input,
+        .form-grid select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        input:focus, select:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 12px;
+            width: 100%;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .login-message {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        .login-message a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .login-message a:hover {
+            text-decoration: underline;
+        }
+		
+		.message {
+			margin-top: 20px;
+			text-align: center;
+			font-size: 16px;
+		}
+		.success-message {
+			color: green;
+		}
+		.error-message {
+			color: red;
+		}
+    </style>
+</head>
+<body>
+    <div class="welcome-message">
+        <h1>Welcome to Bharat Teleservices</h1>
+        <p>Your gateway to seamless telecom solutions</p>
+    </div>
+    <div class="form-container">
+        <form action="#" th:action="@{/register}" th:object="${customer}" method="post">
+            <h2>Customer Registration</h2>
+            <div class="form-grid">
+                <div>
+                    <label>Name:</label>
+                    <input type="text" th:field="*{name}" placeholder="Enter your name" required/>
+                </div>
+                <div>
+                    <label>Email:</label>
+                    <input type="email" th:field="*{email}" placeholder="Enter your email" required/>
+                </div>
+                <div>
+                    <label>Phone Number:</label>
+                    <input type="text" th:field="*{phoneNumber}" placeholder="Enter your phone number" required/>
+                </div>
+                <div>
+                    <label>Address:</label>
+                    <input type="text" th:field="*{address}" placeholder="Enter your address" required/>
+                </div>
+                <div>
+                    <label>Username:</label>
+                    <input type="text" th:field="*{username}" placeholder="Choose a username" required/>
+                </div>
+                <div>
+                    <label>Password:</label>
+                    <input type="password" th:field="*{password}" placeholder="Enter your password" required/>
+                </div>
+                <div>
+                    <label>Date of Birth:</label>
+                    <input type="date" th:field="*{dob}" required/>
+                </div>
+                <div>
+                    <label>Gender:</label>
+                    <select th:field="*{gender}" required>
+                        <option value="" disabled selected>Select your gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit">Register</button>
+        </form>
+		
+		    <div th:if="${message}" class="message success-message" style="color: green; text-align: center; margin-bottom: 20px;">
+		        <p th:text="${message}"></p>
+		    </div>
+			<!-- Error message -->
+			<div th:if="${error}" class="message error-message">
+				<p th:text="${error}"></p>
+		</div>
+		
+    </div>
+    <div class="login-message">
+        <p>Already registered? <a th:href="@{/login}">Login</a></p>
+    </div>
+</body>
+</html>

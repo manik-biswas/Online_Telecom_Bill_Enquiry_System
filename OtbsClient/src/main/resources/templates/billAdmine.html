@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revenue Details</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #eef2f7;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .actions {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .btn {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .total-revenue {
+            text-align: center;
+            font-size: 20px;
+            margin: 20px 0;
+            color: #28a745;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table th, table td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        table th {
+            background-color: #007bff;
+            color: #fff;
+        }
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .home-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: bold;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        margin-bottom: 20px;
+
+        position:relative;
+        bottom: 60px;
+        }
+
+        .home-button:hover {
+        background-color: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+            table th, table td {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Revenue Details</h1>
+        <a th:href="@{/admindashboard}" class="home-button">Home</a>
+        <!-- Filter Form -->
+        <form id="filterForm" action="/revenue" method="GET">
+            <div class="form-group">
+                <label for="fromDate">From Date:</label>
+                <input type="date" id="fromDate" name="fromDate">
+            </div>
+            <div class="form-group">
+                <label for="toDate">To Date:</label>
+                <input type="date" id="toDate" name="toDate">
+            </div>
+            <div class="actions">
+                <button type="submit" class="btn">Filter Payments</button>
+            </div>
+        </form>
+
+        <!-- Total Revenue -->
+        <div id="totalRevenue" class="total-revenue" th:if="${revenue}">
+            <h2 th:text="'TOTAL REVENUE GENERATED = ₹ ' + ${revenue}"></h2>
+        </div>        
+        <div id="noRevenueMessage" class="total-revenue" th:if="${revmessage}" style="color: #dc3545;">
+            <h2 th:text="${revmessage}"></h2>
+        </div>
+
+        <!-- Unpaid Bills Table -->
+        <!-- <table>
+            <thead>
+                <tr>
+                    <th>Bill ID</th>
+                    <th>Customer Name</th>
+                    <th>Amount</th>
+                    <th>Due Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="billsTable">
+                <tr>
+                    <td colspan="5" style="text-align: center;">No unpaid bills found.</td>
+                </tr>
+            </tbody>
+        </table> -->
+    </div>
+</body>
+</html>

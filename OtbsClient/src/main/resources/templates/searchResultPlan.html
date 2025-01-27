@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Search Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f9;
+            color: #333333;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 700px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .details {
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #fafafa;
+            margin-bottom: 20px;
+        }
+
+        .details p {
+            margin: 8px 0;
+            font-size: large;
+            text-align: left;
+        }
+
+        .message-error {
+            color: red;
+			font-size: xx-large;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+            margin: 0 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+		<!--Dsplay Error Message
+		<div th:if="${error}" class="message-error">
+ 	       <p th:text="${error}"></p>
+		</div>   -->
+		
+		<!-- Display error message -->
+		<div th:if="${error != null}" class="message-error">
+			<ul type="none">
+				<li th:each="errorMsg : ${error.values()}" th:text="${errorMsg}"></li>
+			</ul>
+		</div>	
+        <h1>Search Result</h1>
+        <!-- Display plan details -->
+        <div class="details" th:if="${plan}">
+            <p><strong>Plan ID :</strong> <span th:text="${plan.planId}"></span></p>
+            <p><strong>Plan Name :</strong> <span th:text="${plan.planName}"></span></p>
+            <p><strong>Fixed Rate :</strong> <span th:text="${plan.fixedRate}"></span></p>
+            <p><strong>Data Limit :</strong> <span th:text="${plan.dataLimit}"></span></p>
+            <p><strong>Call Limit :</strong> <span th:text="${plan.callLimit}"></span></p>
+            <p><strong>SMS Limit :</strong> <span th:text="${plan.smsLimit}"></span></p>
+            <p><strong>Plan Group :</strong> <span th:text="${plan.planGroup}"></span></p>
+            <p><strong>Number of Days :</strong> <span th:text="${plan.numberOfDay}"></span></p>
+            <p><strong>Status :</strong> <span th:text="${plan.status}"></span></p>
+            <p th:if="${plan.extraChargePerMB != null}">
+                <strong>Extra Charge per MB :</strong> <span th:text="${plan.extraChargePerMB}"></span>
+            </p>
+            <p th:if="${plan.extraChargePerCall != null}">
+                <strong>Extra Charge per Call  :</strong> <span th:text="${plan.extraChargePerCall}"></span>
+            </p>
+            <p th:if="${plan.extraChargePerSMS != null}">
+                <strong>Extra Charge per SMS :</strong> <span th:text="${plan.extraChargePerSMS}"></span>
+            </p>
+        </div>
+
+        <!-- Buttons -->
+        <div class="button-group">
+            <a th:href="@{/plan/manage}">
+                <button type="button">Back</button>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connection Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            color: #343a40;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+        .list-group-item {
+            font-size: 1.1rem;
+            font-weight: 500;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .list-group-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #e9ecef;
+        }
+        .container {
+            max-width: 600px;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+	<a th:href="@{/dashboard}" class="btn btn-secondary btn-back mx-1 ml-1">Go to dashboard</a>
+    <div class="container mt-5">
+        <h1 class="text-center">Connection Management System</h1>
+        <div class="list-group mt-4">
+			
+			<a th:href="@{/view-my-connections}" class="list-group-item list-group-item-action">
+						    View My Connections
+						</a>
+			
+            <!-- Activate Connection -->
+            <a th:href="@{/add-connection}" class="list-group-item list-group-item-action">
+                Activate Connection
+            </a>
+            
+            <!-- Upgrade Connection by Connection ID -->
+            <a th:href="@{/upgrade-connection}" class="list-group-item list-group-item-action">
+                Upgrade Connection by Connection ID
+            </a>
+
+            <!-- Find Nearest Outlet -->
+            <a th:href="@{/findNearestOutlet}" class="list-group-item list-group-item-action">Find Nearest Outlet </a>
+			
+			<!-- View Connection by Connection ID -->
+			<a th:href="@{/viewconnectionbyId}" class="list-group-item list-group-item-action">
+				View Connection by Connection ID
+			</a>
+			
+			<!-- View Connection Log by Connection ID -->
+			<a th:href="@{/view-connection-log}" class="list-group-item list-group-item-action">
+			    View Connection Log by Connection ID
+			</a>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+</body>
+</html>

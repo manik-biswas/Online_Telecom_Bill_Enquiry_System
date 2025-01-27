@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activate Connection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            color: #343a40;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+        .container {
+            max-width: 600px;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .btn {
+            font-size: 1rem;
+            padding: 10px 20px;
+        }
+        .btn-back {
+            margin-top: 20px;
+        }
+    </style>
+	<script>
+	        function validateForm(event) {
+	            const activationDateInput = document.getElementById("activationdate").value;
+	            const activationDate = new Date(activationDateInput);
+	            const currentDate = new Date();
+	            
+	            // Remove time from the current date for comparison
+	            currentDate.setHours(0, 0, 0, 0);
+	            
+	            if (activationDate < currentDate) {
+	                alert("Activation date cannot be in the past.");
+	                event.preventDefault();
+	            } else if (!/^\d{4}-\d{2}-\d{2}$/.test(activationDateInput)) {
+	                alert("Invalid date format. Please use YYYY-MM-DD.");
+	                event.preventDefault();
+	            }
+	        }
+	    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Activate Connection</h1>
+        <form th:action="@{/add-connection}" th:object="${connection}" method="post" class="mt-4" onsubmit="validateForm(event)">
+            <div class="mb-3">
+                <label for="customerId" class="form-label">Customer ID</label>
+				<!--<h3 th:text="${customerId}" ></h3> -->
+                <input type="text" th:value="${customerId}" id="customerObj.customerId" name="customerObj.customerId" class="form-control" readonly>
+            </div>
+            
+            <div class="mb-3">
+                <label for="connectionType" class="form-label">Connection Type</label>
+                <select id="connectionType" name="connectionType" class="form-select" required>
+                    <option value="">Select Connection Type</option>
+                    <option value="prepaid">Prepaid</option>
+                    <option value="postpaid">Postpaid</option>
+                    <option value="broadband">Broadband</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="networkType" class="form-label">Network Type</label>
+                <select id="networkType" name="networkType" class="form-select" required>
+                    <option value="">Select Network Type</option>
+                    <option value="4G">4G</option>
+                    <option value="5G">5G</option>
+                    <option value="Fiber">Fiber</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="activationdate" class="form-label">Activation Date</label>
+                <input type="date" id="activationdate" name="activationdate" class="form-control" 
+                       required th:field="*{activationdate}" 
+                   >
+            </div>
+            <div class="mb-3">
+                <label for="planId" class="form-label">Plan ID</label>
+                <input type="text" id="plan.planId" name="plan.planId" class="form-control" placeholder="Select plan before applying for connection" required>
+            </div>
+            <div class="mb-3">
+                <label for="outletId" class="form-label">Outlet ID</label>
+                <input type="text" id="outletObj.outletId" name="outletObj.outletId" class="form-control" placeholder="Add outlet to know outlet ID" required>
+            </div>
+
+            <!-- Visible status field with default value -->
+            <div class="mb-3">
+                <label for="status" class="form-label">Status</label>
+                <input type="text" id="status" name="status" class="form-control" value="Active" readonly>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Activate Connection</button>
+        </form>
+        <a th:href="@{/connection-management}" class="btn btn-secondary btn-back">Go Back</a>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+</body>
+</html>
