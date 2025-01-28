@@ -1,4 +1,4 @@
-# otbs-project
+# Online Telecom Bill Enquiry System
 
 MANIK BISWAS <br>
 manikbiswas1225@gmail.com <br><br>
